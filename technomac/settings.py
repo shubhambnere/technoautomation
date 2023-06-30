@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^jiv6@(&ky7$mn6r26g4oc*&dta=+-*te4l+y7filrf^)gk0j1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -120,12 +120,26 @@ WSGI_APPLICATION = 'technomac.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG : 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else: 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'techno',
+            'USER': 'technouser',
+            'PASSWORD': 'techno8118',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
+
+
 
 
 # Password validation
@@ -205,7 +219,7 @@ EMAIL_USE_TLS = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_WHITELIST = [
@@ -216,5 +230,12 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 
+# create user technouser with password 'techno8118'
+# ALTER ROLE technouser SET client_encoding TO 'utf8';
+# ALTER ROLE technouser SET default_transaction_isolation TO 'read committed';
+# ALTER ROLE technouser SET timezone TO 'UTC';
+
+
+# GRANT ALL PRIVILEGES ON DATABASE techno TO technouser;
 
 
